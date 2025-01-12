@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@dataui/crud-typeorm';
-import { ExampleGasConsumption } from './entities/example-gas-consumption.entity';
+import { ExampleLoadBoiler } from './entities/example-load-boiler.entity';
 import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { ExampleGasConsumptionGateway } from './example-gas-consumption.gateway';
+import { ExampleLoadBoilerGateway } from './example-load-boiler.gateway';
 
 @Injectable()
-export class ExampleGasConsumptionService extends TypeOrmCrudService<ExampleGasConsumption> {
+export class ExampleLoadBoilerService extends TypeOrmCrudService<ExampleLoadBoiler> {
   constructor(
-    @InjectRepository(ExampleGasConsumption)
-    private readonly gasConsumptionRepository: Repository<ExampleGasConsumption>,
-    private readonly gasConsumptionGateway: ExampleGasConsumptionGateway,
+    @InjectRepository(ExampleLoadBoiler)
+    private readonly loadBoilerRepository: Repository<ExampleLoadBoiler>,
+    private readonly loadBoilerGateway: ExampleLoadBoilerGateway,
   ) {
-    super(gasConsumptionRepository);
+    super(loadBoilerRepository);
   }
 
   private stationValue = 50;
@@ -34,7 +34,7 @@ export class ExampleGasConsumptionService extends TypeOrmCrudService<ExampleGasC
 
   @Cron('*/1 * * * * *')
   async insertRandomData() {
-    const newData = new ExampleGasConsumption();
+    const newData = new ExampleLoadBoiler();
 
     this.stationValue = this.getNextRandomValue(this.stationValue);
     this.boiler1Value = this.getNextRandomValue(this.boiler1Value);
@@ -48,12 +48,12 @@ export class ExampleGasConsumptionService extends TypeOrmCrudService<ExampleGasC
     newData.boiler_3 = this.boiler3Value;
     newData.boiler_4 = this.boiler4Value;
 
-    const savedData = await this.gasConsumptionRepository.save(newData);
-    this.gasConsumptionGateway.sendGasConsumptionUpdate(savedData);
+    const savedData = await this.loadBoilerRepository.save(newData);
+    this.loadBoilerGateway.sendLoadBoilerUpdate(savedData);
   }
 
   async getLatestData() {
-    return await this.gasConsumptionRepository.findOne({
+    return await this.loadBoilerRepository.findOne({
       order: { created_at: 'DESC' },
     });
   }

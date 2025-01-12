@@ -12,6 +12,7 @@ import { ExampleModule } from './example/example.module';
 import { ExampleGasStationModule } from './example-gas-station/example-gas-station.module';
 import { ExampleBoilerPressureModule } from './example-boiler-pressure/example-boiler-pressure.module';
 import { ExampleGasConsumptionModule } from './example-gas-consumption/example-gas-consumption.module';
+import { ExampleLoadBoilerModule } from './example-load-boiler/example-load-boiler.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { ExampleGasConsumptionModule } from './example-gas-consumption/example-g
     ExampleGasStationModule,
     ExampleBoilerPressureModule,
     ExampleGasConsumptionModule,
+    ExampleLoadBoilerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
