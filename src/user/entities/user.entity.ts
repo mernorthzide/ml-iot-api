@@ -1,5 +1,6 @@
 import { CrudValidationGroups } from '@dataui/crud';
 import { IsEmail, IsEmpty, IsOptional } from 'class-validator';
+import { Role } from 'src/role/entities/role.entity';
 import { BaseEntity } from 'src/shared/BaseEntity';
 import {
   Column,
@@ -30,4 +31,11 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   is_active: boolean;
+
+  @Column({ nullable: true, type: 'int' })
+  role_id: number;
+
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role_id' })
+  role: Role;
 }

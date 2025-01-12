@@ -20,6 +20,7 @@ import { User } from './entities/user.entity';
   query: {
     exclude: ['password'],
     join: {
+      role: {},
       created_by: {},
       updated_by: {},
     },
@@ -74,6 +75,8 @@ export class UserController implements CrudController<User> {
       // to prevent updating it with null or undefined
       delete dto.password;
     }
+
+    dto.role_id = parseInt(dto.role_id.toString());
 
     return this.base.updateOneBase(req, dto);
   }

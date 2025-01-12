@@ -25,12 +25,17 @@ export class AuthService {
       id: user.id,
       email: user.email,
       name: user.name,
+      role: user.role,
+      role_id: user.role_id,
     };
 
     return {
       access_token: this.jwtService.sign(payload),
       refresh_token: this.jwtService.sign(payload, { expiresIn: '7d' }),
-      user: payload,
+      user: {
+        ...payload,
+        role_name: user.role?.name,
+      },
     };
   }
 
@@ -38,6 +43,7 @@ export class AuthService {
     try {
       const user = await this.userRepository.findOne({
         where: { email: signInDto.email, is_active: true },
+        relations: ['role'],
       });
 
       if (!user) {
