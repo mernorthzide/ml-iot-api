@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -10,18 +11,25 @@ import { ExampleModule } from './example/example.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mssql',
-      host: '192.168.70.11',
-      port: 1433,
-      username: 'iot',
-      password: 'Iot@Mtl!25',
-      database: 'ml-iot-dev',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-      options: {
-        encrypt: false,
-      },
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mssql',
+        host: configService.get('DB_HOST'),
+        port: +configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: configService.get('DB_SYNC') === 'true',
+        options: {
+          encrypt: configService.get('DB_ENCRYPT') === 'true',
+        },
+      }),
+      inject: [ConfigService],
     }),
     RoleModule,
     UserModule,
