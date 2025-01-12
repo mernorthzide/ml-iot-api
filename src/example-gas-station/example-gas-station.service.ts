@@ -24,10 +24,10 @@ export class ExampleGasStationService extends TypeOrmCrudService<ExampleGasStati
     const newData = new ExampleGasStation();
 
     this.previousBarLeft += Math.random() < 0.5 ? -1 : 1;
-    this.previousBarLeft = Math.min(15, Math.max(0, this.previousBarLeft));
+    this.previousBarLeft = Math.min(15, Math.max(5, this.previousBarLeft));
 
     this.previousBarRight += Math.random() < 0.5 ? -1 : 1;
-    this.previousBarRight = Math.min(15, Math.max(0, this.previousBarRight));
+    this.previousBarRight = Math.min(15, Math.max(5, this.previousBarRight));
 
     newData.bar_left = this.previousBarLeft;
     newData.bar_right = this.previousBarRight;
