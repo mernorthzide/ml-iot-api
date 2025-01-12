@@ -18,6 +18,6 @@ async function bootstrap() {
   // ตั้งค่า Swagger UI
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();
