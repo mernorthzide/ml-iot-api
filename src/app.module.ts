@@ -12,15 +12,15 @@ import { ExampleModule } from './example/example.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'mrn-poc.database.windows.net',
+      host: '192.168.70.11',
       port: 1433,
-      username: 'mern',
-      password: 'P@ssw0rd',
-      database: 'iot-dev',
+      username: 'iot',
+      password: 'Iot@Mtl!25',
+      database: 'ml-iot-dev',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       options: {
-        encrypt: true,
+        encrypt: false,
       },
     }),
     RoleModule,
