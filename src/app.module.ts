@@ -8,6 +8,7 @@ import { SeederModule } from './seeder/seeder.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { ExampleModule } from './example/example.module';
+import { ExampleGasStationModule } from './example-gas-station/example-gas-station.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ExampleModule } from './example/example.module';
     SeederModule,
     AuthModule,
     ExampleModule,
+    ExampleGasStationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
