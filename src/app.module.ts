@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { SeederModule } from './seeder/seeder.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
+import { ExampleModule } from './example/example.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { RoleModule } from './role/role.module';
     UserModule,
     SeederModule,
     AuthModule,
+    ExampleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
