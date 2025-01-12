@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { ExampleModule } from './example/example.module';
 import { ExampleGasStationModule } from './example-gas-station/example-gas-station.module';
+import { ExampleBoilerPressureModule } from './example-boiler-pressure/example-boiler-pressure.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ExampleGasStationModule } from './example-gas-station/example-gas-stati
     AuthModule,
     ExampleModule,
     ExampleGasStationModule,
+    ExampleBoilerPressureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
