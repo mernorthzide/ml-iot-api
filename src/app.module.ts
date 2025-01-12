@@ -11,6 +11,7 @@ import { RoleModule } from './role/role.module';
 import { ExampleModule } from './example/example.module';
 import { ExampleGasStationModule } from './example-gas-station/example-gas-station.module';
 import { ExampleBoilerPressureModule } from './example-boiler-pressure/example-boiler-pressure.module';
+import { ExampleGasConsumptionModule } from './example-gas-consumption/example-gas-consumption.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ExampleBoilerPressureModule } from './example-boiler-pressure/example-b
     ExampleModule,
     ExampleGasStationModule,
     ExampleBoilerPressureModule,
+    ExampleGasConsumptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
