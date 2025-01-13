@@ -13,6 +13,7 @@ import { ExampleGasStationModule } from './example-gas-station/example-gas-stati
 import { ExampleBoilerPressureModule } from './example-boiler-pressure/example-boiler-pressure.module';
 import { ExampleGasConsumptionModule } from './example-gas-consumption/example-gas-consumption.module';
 import { ExampleLoadBoilerModule } from './example-load-boiler/example-load-boiler.module';
+import { IotDeviceTypeModule } from './iot-device-type/iot-device-type.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ExampleLoadBoilerModule } from './example-load-boiler/example-load-boil
     ExampleBoilerPressureModule,
     ExampleGasConsumptionModule,
     ExampleLoadBoilerModule,
+    IotDeviceTypeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
