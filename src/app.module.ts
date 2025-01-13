@@ -16,6 +16,7 @@ import { ExampleLoadBoilerModule } from './example-load-boiler/example-load-boil
 import { IotDeviceTypeModule } from './iot-device-type/iot-device-type.module';
 import { LocationModule } from './location/location.module';
 import { IotDeviceModule } from './iot-device/iot-device.module';
+import { IotDeviceModelModule } from './iot-device-model/iot-device-model.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { IotDeviceModule } from './iot-device/iot-device.module';
     IotDeviceTypeModule,
     LocationModule,
     IotDeviceModule,
+    IotDeviceModelModule,
   ],
   controllers: [AppController],
   providers: [AppService],
