@@ -8,6 +8,7 @@ import {
 import { BaseEntity } from '../../shared/BaseEntity';
 import { IotDeviceType } from '../../iot-device-type/entities/iot-device-type.entity';
 import { Location } from '../../location/entities/location.entity';
+import { IotDeviceModel } from '../../iot-device-model/entities/iot-device-model.entity';
 
 @Entity()
 export class IotDevice extends BaseEntity {
@@ -20,6 +21,13 @@ export class IotDevice extends BaseEntity {
   @ManyToOne(() => IotDeviceType)
   @JoinColumn({ name: 'iot_device_type_id' })
   iot_device_type: IotDeviceType;
+
+  @Column()
+  iot_device_model_id: number;
+
+  @ManyToOne(() => IotDeviceModel)
+  @JoinColumn({ name: 'iot_device_model_id' })
+  iot_device_model: IotDeviceModel;
 
   @Column()
   name: string;

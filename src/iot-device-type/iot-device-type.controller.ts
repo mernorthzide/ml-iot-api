@@ -11,12 +11,8 @@ import { IotDeviceType } from './entities/iot-device-type.entity';
   },
   query: {
     join: {
-      created_by: {
-        eager: true,
-      },
-      updated_by: {
-        eager: true,
-      },
+      created_by: {},
+      updated_by: {},
     },
   },
 })

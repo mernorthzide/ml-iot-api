@@ -11,18 +11,11 @@ import { IotDevice } from './entities/iot-device.entity';
   },
   query: {
     join: {
-      created_by: {
-        eager: true,
-      },
-      updated_by: {
-        eager: true,
-      },
-      iot_device_type: {
-        eager: true,
-      },
-      location: {
-        eager: true,
-      },
+      created_by: {},
+      updated_by: {},
+      iot_device_type: {},
+      iot_device_model: {},
+      location: {},
     },
   },
 })
