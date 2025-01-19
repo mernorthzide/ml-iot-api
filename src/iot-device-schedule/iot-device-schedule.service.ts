@@ -23,7 +23,7 @@ const PM2200_REGISTERS = {
     A: 2999,
     B: 3001,
     C: 3003,
-    N: 3004,
+    N: 3005,
     AVERAGE: 3009,
   },
   VOLTAGE: {
@@ -162,7 +162,7 @@ export class IotDeviceScheduleService
         current_a_3000: null,
         current_b_3002: null,
         current_c_3004: null,
-        current_n_3005: null,
+        current_n_3006: null,
         current_average_3010: null,
         voltage_a_b_3020: null,
         voltage_b_c_3022: null,
@@ -199,7 +199,7 @@ export class IotDeviceScheduleService
       await safeReadRegister(PM2200_REGISTERS.CURRENT.A, 'current_a_3000');
       await safeReadRegister(PM2200_REGISTERS.CURRENT.B, 'current_b_3002');
       await safeReadRegister(PM2200_REGISTERS.CURRENT.C, 'current_c_3004');
-      await safeReadRegister(PM2200_REGISTERS.CURRENT.N, 'current_n_3005');
+      await safeReadRegister(PM2200_REGISTERS.CURRENT.N, 'current_n_3006');
       await safeReadRegister(
         PM2200_REGISTERS.CURRENT.AVERAGE,
         'current_average_3010',

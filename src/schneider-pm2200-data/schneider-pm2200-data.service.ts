@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@dataui/crud-typeorm';
 import { SchneiderPm2200Data } from './entities/schneider-pm2200-data.entity';
 import { Repository } from 'typeorm';
-import { IotDevice } from '../iot-device/entities/iot-device.entity';
 import { SchneiderPm2200DataGateway } from './schneider-pm2200-data.gateway';
 
 @Injectable()
@@ -27,7 +26,7 @@ export class SchneiderPm2200DataService extends TypeOrmCrudService<SchneiderPm22
     schneiderData.current_a_3000 = data.current_a_3000;
     schneiderData.current_b_3002 = data.current_b_3002;
     schneiderData.current_c_3004 = data.current_c_3004;
-    schneiderData.current_n_3005 = data.current_n_3005;
+    schneiderData.current_n_3006 = data.current_n_3006;
     schneiderData.current_average_3010 = data.current_average_3010;
     schneiderData.voltage_a_b_3020 = data.voltage_a_b_3020;
     schneiderData.voltage_b_c_3022 = data.voltage_b_c_3022;

@@ -32,7 +32,7 @@ export class SchneiderPm2200Data {
   current_c_3004: number;
 
   @Column({ type: 'float', nullable: true })
-  current_n_3005: number;
+  current_n_3006: number;
 
   @Column({ type: 'float', nullable: true })
   current_average_3010: number;
