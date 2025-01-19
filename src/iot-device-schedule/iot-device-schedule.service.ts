@@ -89,6 +89,7 @@ export class IotDeviceScheduleService
       const deviceTypes = await this.iotDeviceScheduleRepository
         .createQueryBuilder('schedule')
         .leftJoinAndSelect('schedule.iot_device_type', 'deviceType')
+        .where('schedule.is_active = :isActive', { isActive: true })
         .getMany();
 
       // 2. สร้าง schedules สำหรับแต่ละ device type
@@ -107,6 +108,15 @@ export class IotDeviceScheduleService
     // ยกเลิก schedule เดิมถ้ามี
     if (this.scheduleIntervals.has(deviceSchedule.id)) {
       clearInterval(this.scheduleIntervals.get(deviceSchedule.id));
+      this.scheduleIntervals.delete(deviceSchedule.id);
+    }
+
+    // ถ้า is_active เป็น false ไม่ต้องสร้าง schedule ใหม่
+    if (!deviceSchedule.is_active) {
+      console.log(
+        `[${new Date().toISOString()}] Schedule for device type: ${deviceSchedule.iot_device_type.name} is inactive`,
+      );
+      return;
     }
 
     const interval = deviceSchedule.schedule_interval;

@@ -22,4 +22,7 @@ export class IotDeviceSchedule extends BaseEntity {
 
   @Column()
   schedule_interval: string;
+
+  @Column({ default: true })
+  is_active: boolean;
 }
