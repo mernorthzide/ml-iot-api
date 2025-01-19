@@ -10,6 +10,7 @@ import { IotDeviceSchedule } from './entities/iot-device-schedule.entity';
 import { Override } from '@dataui/crud';
 import { CrudRequest, CreateManyDto } from '@dataui/crud';
 import { DeepPartial } from 'typeorm';
+import { IotDevice } from '../iot-device/entities/iot-device.entity';
 
 @Injectable()
 export class IotDeviceScheduleService
@@ -21,6 +22,8 @@ export class IotDeviceScheduleService
   constructor(
     @InjectRepository(IotDeviceSchedule)
     private readonly iotDeviceScheduleRepository: Repository<IotDeviceSchedule>,
+    @InjectRepository(IotDevice)
+    private readonly iotDeviceRepository: Repository<IotDevice>,
   ) {
     super(iotDeviceScheduleRepository);
   }
@@ -103,15 +106,22 @@ export class IotDeviceScheduleService
     }
   }
 
-  // สร้าง schedule สำหรับ device เฉพาะ
+  private async getDevicesForType(deviceTypeId: number): Promise<IotDevice[]> {
+    return this.iotDeviceRepository.find({
+      where: {
+        iot_device_type_id: deviceTypeId,
+        is_active: true,
+      },
+      relations: ['iot_device_type'],
+    });
+  }
+
   private createScheduleForDevice(deviceSchedule: IotDeviceSchedule) {
-    // ยกเลิก schedule เดิมถ้ามี
     if (this.scheduleIntervals.has(deviceSchedule.id)) {
       clearInterval(this.scheduleIntervals.get(deviceSchedule.id));
       this.scheduleIntervals.delete(deviceSchedule.id);
     }
 
-    // ถ้า is_active เป็น false ไม่ต้องสร้าง schedule ใหม่
     if (!deviceSchedule.is_active) {
       console.log(
         `[${new Date().toISOString()}] Schedule for device type: ${deviceSchedule.iot_device_type.name} is inactive`,
@@ -121,16 +131,32 @@ export class IotDeviceScheduleService
 
     const interval = deviceSchedule.schedule_interval;
 
-    // สร้าง schedule ใหม่
-    const intervalId = setInterval(() => {
-      console.log(
-        `[${new Date().toISOString()}] Running schedule for device type: ${deviceSchedule.iot_device_type.name}`,
-      );
-      console.log(`Interval: ${interval}`);
-      // TODO: เพิ่มการทำงานเพิ่มเติมตามต้องการ
+    const intervalId = setInterval(async () => {
+      try {
+        const devices = await this.getDevicesForType(
+          deviceSchedule.iot_device_type.id,
+        );
+
+        console.log(
+          `[${new Date().toISOString()}] Running schedule for device type: ${deviceSchedule.iot_device_type.name}`,
+        );
+        console.log(`Found ${devices.length} active devices`);
+        console.log(`Schedule interval: ${interval}`);
+
+        for (const device of devices) {
+          console.log(
+            `Processing device: ${device.name} (IP: ${device.ip}, Port: ${device.port})`,
+          );
+          // TODO: เพิ่มการทำงานกับแต่ละ device ตามที่ต้องการ
+        }
+      } catch (error) {
+        console.error(
+          `Error processing schedule for device type ${deviceSchedule.iot_device_type.name}:`,
+          error,
+        );
+      }
     }, this.parseInterval(interval));
 
-    // เก็บ reference ของ interval ใหม่
     this.scheduleIntervals.set(deviceSchedule.id, intervalId);
   }
 
