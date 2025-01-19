@@ -4,12 +4,14 @@ import { TypeOrmCrudService } from '@dataui/crud-typeorm';
 import { SchneiderPm2200Data } from './entities/schneider-pm2200-data.entity';
 import { Repository } from 'typeorm';
 import { IotDevice } from '../iot-device/entities/iot-device.entity';
+import { SchneiderPm2200DataGateway } from './schneider-pm2200-data.gateway';
 
 @Injectable()
 export class SchneiderPm2200DataService extends TypeOrmCrudService<SchneiderPm2200Data> {
   constructor(
     @InjectRepository(SchneiderPm2200Data)
     private readonly schneiderPm2200DataRepository: Repository<SchneiderPm2200Data>,
+    private readonly schneiderPm2200DataGateway: SchneiderPm2200DataGateway,
   ) {
     super(schneiderPm2200DataRepository);
   }
@@ -41,6 +43,12 @@ export class SchneiderPm2200DataService extends TypeOrmCrudService<SchneiderPm22
     schneiderData.active_power_total_3060 = data.active_power_total_3060;
     schneiderData.power_factor_total_3084 = data.power_factor_total_3084;
 
-    return await this.schneiderPm2200DataRepository.save(schneiderData);
+    const savedData =
+      await this.schneiderPm2200DataRepository.save(schneiderData);
+
+    // ส่งข้อมูลผ่าน WebSocket
+    this.schneiderPm2200DataGateway.sendSchneiderPM2200Update(savedData);
+
+    return savedData;
   }
 }
