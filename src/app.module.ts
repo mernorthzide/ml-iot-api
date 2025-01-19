@@ -8,11 +8,6 @@ import { UserModule } from './user/user.module';
 import { SeederModule } from './seeder/seeder.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
-import { ExampleModule } from './example/example.module';
-import { ExampleGasStationModule } from './example-gas-station/example-gas-station.module';
-import { ExampleBoilerPressureModule } from './example-boiler-pressure/example-boiler-pressure.module';
-import { ExampleGasConsumptionModule } from './example-gas-consumption/example-gas-consumption.module';
-import { ExampleLoadBoilerModule } from './example-load-boiler/example-load-boiler.module';
 import { IotDeviceTypeModule } from './iot-device-type/iot-device-type.module';
 import { LocationModule } from './location/location.module';
 import { IotDeviceModule } from './iot-device/iot-device.module';
@@ -48,11 +43,11 @@ import { SchneiderPm2200DataModule } from './schneider-pm2200-data/schneider-pm2
     UserModule,
     SeederModule,
     AuthModule,
-    ExampleModule,
-    ExampleGasStationModule,
-    ExampleBoilerPressureModule,
-    ExampleGasConsumptionModule,
-    ExampleLoadBoilerModule,
+    // ExampleModule,
+    // ExampleGasStationModule,
+    // ExampleBoilerPressureModule,
+    // ExampleGasConsumptionModule,
+    // ExampleLoadBoilerModule,
     IotDeviceTypeModule,
     LocationModule,
     IotDeviceModule,
