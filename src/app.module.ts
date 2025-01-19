@@ -18,6 +18,7 @@ import { LocationModule } from './location/location.module';
 import { IotDeviceModule } from './iot-device/iot-device.module';
 import { IotDeviceModelModule } from './iot-device-model/iot-device-model.module';
 import { IotDeviceScheduleModule } from './iot-device-schedule/iot-device-schedule.module';
+import { PocModbusModule } from './poc-modbus/poc-modbus.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { IotDeviceScheduleModule } from './iot-device-schedule/iot-device-schedu
     IotDeviceModule,
     IotDeviceModelModule,
     IotDeviceScheduleModule,
+    PocModbusModule,
   ],
   controllers: [AppController],
   providers: [AppService],
