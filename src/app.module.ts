@@ -15,6 +15,8 @@ import { IotDeviceModelModule } from './iot-device-model/iot-device-model.module
 import { IotDeviceScheduleModule } from './iot-device-schedule/iot-device-schedule.module';
 import { PocModbusModule } from './poc-modbus/poc-modbus.module';
 import { SchneiderPm2200DataModule } from './schneider-pm2200-data/schneider-pm2200-data.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -57,6 +59,12 @@ import { SchneiderPm2200DataModule } from './schneider-pm2200-data/schneider-pm2
     SchneiderPm2200DataModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}

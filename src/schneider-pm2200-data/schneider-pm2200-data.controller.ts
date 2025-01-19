@@ -1,9 +1,10 @@
 import { Crud, CrudController } from '@dataui/crud';
-import { Controller, UseGuards, Get, Param } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, UseGuards, Get } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { SchneiderPm2200DataService } from './schneider-pm2200-data.service';
 import { SchneiderPm2200Data } from './entities/schneider-pm2200-data.entity';
+import { Public } from '../auth/decorators/public.decorator';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Crud({
   model: {
@@ -18,7 +19,7 @@ import { SchneiderPm2200Data } from './entities/schneider-pm2200-data.entity';
   },
 })
 @ApiTags('Schneider PM2200 Data')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @Controller('schneider-pm2200-data')
 export class SchneiderPm2200DataController
@@ -30,6 +31,7 @@ export class SchneiderPm2200DataController
     return this;
   }
 
+  @Public()
   @Get('hourly-energy')
   getHourlyAverageEnergy() {
     return this.service.getHourlyAverageEnergyLast24Hours();
