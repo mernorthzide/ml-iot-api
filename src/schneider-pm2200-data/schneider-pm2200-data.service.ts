@@ -50,4 +50,24 @@ export class SchneiderPm2200DataService extends TypeOrmCrudService<SchneiderPm22
 
     return savedData;
   }
+
+  async getHourlyAverageEnergyLast24Hours() {
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setHours(now.getHours() - 24);
+
+    const data = await this.schneiderPm2200DataRepository
+      .createQueryBuilder('data')
+      .select([
+        'DATEADD(HOUR, DATEDIFF(HOUR, 0, data.created_at), 0) as hour',
+        'AVG(data.active_energy_delivered_into_load_2700) as average_energy',
+      ])
+      .where('data.created_at >= :yesterday', { yesterday })
+      .andWhere('data.created_at <= :now', { now })
+      .groupBy('DATEADD(HOUR, DATEDIFF(HOUR, 0, data.created_at), 0)')
+      .orderBy('hour', 'DESC')
+      .getRawMany();
+
+    return data;
+  }
 }

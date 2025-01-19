@@ -1,5 +1,5 @@
 import { Crud, CrudController } from '@dataui/crud';
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, UseGuards, Get, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { SchneiderPm2200DataService } from './schneider-pm2200-data.service';
@@ -28,5 +28,10 @@ export class SchneiderPm2200DataController
 
   get base(): CrudController<SchneiderPm2200Data> {
     return this;
+  }
+
+  @Get('hourly-energy')
+  getHourlyAverageEnergy() {
+    return this.service.getHourlyAverageEnergyLast24Hours();
   }
 }
