@@ -19,6 +19,7 @@ import { IotDeviceModule } from './iot-device/iot-device.module';
 import { IotDeviceModelModule } from './iot-device-model/iot-device-model.module';
 import { IotDeviceScheduleModule } from './iot-device-schedule/iot-device-schedule.module';
 import { PocModbusModule } from './poc-modbus/poc-modbus.module';
+import { SchneiderPm2200DataModule } from './schneider-pm2200-data/schneider-pm2200-data.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { PocModbusModule } from './poc-modbus/poc-modbus.module';
     IotDeviceModelModule,
     IotDeviceScheduleModule,
     PocModbusModule,
+    SchneiderPm2200DataModule,
   ],
   controllers: [AppController],
   providers: [AppService],

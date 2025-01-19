@@ -12,6 +12,7 @@ import { CrudRequest, CreateManyDto } from '@dataui/crud';
 import { DeepPartial } from 'typeorm';
 import { IotDevice } from '../iot-device/entities/iot-device.entity';
 import ModbusRTU from 'modbus-serial';
+import { SchneiderPm2200DataService } from '../schneider-pm2200-data/schneider-pm2200-data.service';
 
 // Constants for Schneider PM2200 registers
 const PM2200_REGISTERS = {
@@ -58,6 +59,7 @@ export class IotDeviceScheduleService
     private readonly iotDeviceScheduleRepository: Repository<IotDeviceSchedule>,
     @InjectRepository(IotDevice)
     private readonly iotDeviceRepository: Repository<IotDevice>,
+    private readonly schneiderPm2200DataService: SchneiderPm2200DataService,
   ) {
     super(iotDeviceScheduleRepository);
   }
@@ -254,6 +256,15 @@ export class IotDeviceScheduleService
         `[${new Date().toISOString()}] Device ${device.name} data:`,
         JSON.stringify(filteredData, null, 2),
       );
+
+      // บันทึกข้อมูลลงในฐานข้อมูล
+      if (Object.keys(filteredData).length > 0) {
+        await this.schneiderPm2200DataService.saveSchneiderPM2200Data(
+          filteredData,
+          device.id,
+        );
+      }
+
       return filteredData;
     } catch (error) {
       console.error(`Error reading data from device ${device.name}:`, error);
