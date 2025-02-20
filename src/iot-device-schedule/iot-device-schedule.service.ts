@@ -182,6 +182,7 @@ export class IotDeviceScheduleService
       // ฟังก์ชันสำหรับอ่านค่าแบบ safe
       const safeReadRegister = async (register: number, key: string) => {
         try {
+          client.setID(device.device_id);
           const result = await client.readHoldingRegisters(register, 2);
           data[key] = this.parseFloat32(result.data);
         } catch (error) {
