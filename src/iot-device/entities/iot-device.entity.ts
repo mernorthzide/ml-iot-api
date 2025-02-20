@@ -39,6 +39,9 @@ export class IotDevice extends BaseEntity {
   port: number;
 
   @Column()
+  device_id: number;
+
+  @Column()
   location_id: number;
 
   @ManyToOne(() => Location)
