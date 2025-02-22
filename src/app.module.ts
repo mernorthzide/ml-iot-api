@@ -18,6 +18,7 @@ import { SchneiderPm2200DataModule } from './schneider-pm2200-data/schneider-pm2
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { SchneiderPm2200HourlyModule } from './schneider-pm2200-hourly/schneider-pm2200-hourly.module';
+import { DashboardConfigModule } from './dashboard-config/dashboard-config.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { SchneiderPm2200HourlyModule } from './schneider-pm2200-hourly/schneider
     PocModbusModule,
     SchneiderPm2200DataModule,
     SchneiderPm2200HourlyModule,
+    DashboardConfigModule,
   ],
   controllers: [AppController],
   providers: [
