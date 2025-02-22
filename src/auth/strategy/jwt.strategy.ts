@@ -15,15 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any, req: any) {
-    // ตรวจสอบว่าเป็น hard coded token หรือไม่
-    const authHeader = req.headers.authorization;
-    const token = authHeader?.split(' ')[1];
-
-    if (token === jwtConstants.hardCodedToken) {
-      return { sub: 'hardcoded', iat: Date.now() };
-    }
-
-    // ถ้าไม่ใช่ hard coded token ให้ตรวจสอบ payload ตามปกติ
+    // ถ้าไม่มี payload ให้ throw UnauthorizedException
     if (!payload) {
       throw new UnauthorizedException();
     }

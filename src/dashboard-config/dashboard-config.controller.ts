@@ -4,6 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { DashboardConfigService } from './dashboard-config.service';
 import { DashboardConfig } from './entities/dashboard-config.entity';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Crud({
   model: {
@@ -21,7 +22,7 @@ import { DashboardConfig } from './entities/dashboard-config.entity';
   },
 })
 @ApiTags('DashboardConfig')
-@UseGuards(AuthGuard('jwt'))
+@Public()
 @ApiBearerAuth()
 @Controller('dashboard-config')
 export class DashboardConfigController
