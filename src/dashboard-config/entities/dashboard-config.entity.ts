@@ -8,6 +8,6 @@ export class DashboardConfig extends BaseEntity {
   @Column({ unique: true })
   config_name: string;
 
-  @Column()
+  @Column('text', { nullable: true })
   config_value: string;
 }
